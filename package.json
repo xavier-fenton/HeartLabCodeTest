@@ -1,0 +1,20 @@
+{
+  "name": "heartlab-open-clinics",
+  "description": "HeartLab Coding Test",
+  "version": "1.0.0",
+  "author": "HeartLab Ltd.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "scripts": {
+    "format": "prettier --write \"**/*.ts\"",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "luxon": "^2.3.1",
+    "prettier": "^2.6.1",
+    "vitest": "^0.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}

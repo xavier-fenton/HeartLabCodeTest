@@ -1,0 +1,21 @@
+{
+  "editor.rulers": [80],
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  "files.autoSave": "onFocusChange",
+
+  "[markdown]": {
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false
+  },
+
+  "files.exclude": {
+    "**/node_modules": true,
+    "package-lock.json": true
+  }
+}

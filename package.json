@@ -1,5 +1,5 @@
 {
-  "name": "heartlab-open-clinics",
+  "name": "heartlab-coding-test",
   "description": "HeartLab Coding Test",
   "version": "1.0.0",
   "author": "HeartLab Ltd.",
@@ -10,11 +10,12 @@
     "test": "vitest"
   },
   "dependencies": {
-    "luxon": "^2.3.1",
-    "prettier": "^2.6.1",
-    "vitest": "^0.8.0"
+    "luxon": "^3.4.3",
+    "prettier": "^3.0.3",
+    "vitest": "^0.34.6"
   },
   "devDependencies": {
-    "typescript": "^4.6.3"
+    "@types/luxon": "^3.3.2",
+    "typescript": "^5.2.2"
   }
 }

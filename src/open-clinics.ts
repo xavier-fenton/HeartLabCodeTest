@@ -146,12 +146,27 @@ export function getOpenClinics(
 // Todo: Reduce the clinics being parsed
 //       I need to some how simplify the matching process from the parsed data not sure how
 
+/* Reason: Why I think I've over complicated this, is because 
+  I haven't taken use of the luxon library.
+  For now I will treat as hardcoded, meaning I will need to refactor this
+  majorly.
+
+*/
+
 const parsedClinic = parseClinicOpeningHours(exampleClinicOpeningHours)
 const clinicsToMatch = parsedClinic.map((value) => 
 {
   const daysOpen = value.Open.map((info) => {
-    if(info.days === queryTime.weekday){
-      return info.days
+    // looping through days open, finding a match of the given query'd day
+    // then I will need to match the day from days of the week and assign to a returned day
+    for (let i = 0; i < info.days.length; i++) {
+      const element = info.days[i];
+      
+      if(info.days[i] === queryTime.weekday){
+        console.log(info.days[i]);
+        
+        return daysOfWeek[i] === element
+      }
     }
   })
   

@@ -4,7 +4,7 @@ import { exampleClinicOpeningHours, type ClinicOpeningHours } from "../data/exam
 type ParsedClinicOpeningHours = {
     clinicName: string;
     Open: {
-        openingHours: string[];
+        openingHours: number[];
         availableTimes: number[];
     }[];
 }[]
@@ -56,7 +56,7 @@ function determineOpenDays(startDay: string, endDay: string): Array<number>{
           }
           return daysBetween
         }
-        
+
 function formatTime(timeString: string) {
           
           if(timeString.length === 3){

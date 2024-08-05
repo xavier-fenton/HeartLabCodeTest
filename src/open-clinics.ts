@@ -4,7 +4,7 @@ import { exampleClinicOpeningHours, type ClinicOpeningHours } from "../data/exam
 type ParsedClinicOpeningHours = {
     clinicName: string;
     Open: {
-        openingHours: number[];
+        days: number[];
         availableTimes: number[];
     }[];
 }[]
@@ -121,7 +121,7 @@ const sortClinic = clinicOpeningHours.map((clinic) => {
       
       const hours = convertHoursTo24HourTime(seperateTimes[0], seperateTimes[2])
       
-      return {openingHours: days, availableTimes: hours }
+      return {days: days, availableTimes: hours }
     })
     
     return {clinicName: clinicName , Open: sortTime}
@@ -143,14 +143,26 @@ export function getOpenClinics(
   queryTime: DateTime
 ) {
 
-const parsedClinic = parseClinicOpeningHours(exampleClinicOpeningHours)
-const hourToMatch = parsedClinic.find((value) => 
-{
-  const findOpen = value.Open
+// Todo: Reduce the clinics being parsed
+//       I need to some how simplify the matching process from the parsed data not sure how
 
-  console.log(findOpen);
+const parsedClinic = parseClinicOpeningHours(exampleClinicOpeningHours)
+const clinicsToMatch = parsedClinic.map((value) => 
+{
+  const daysOpen = value.Open.map((info) => {
+    if(info.days === queryTime.weekday){
+      return info.days
+    }
+  })
+  
+  return daysOpen;
+  
+  
+  
   
 })
+
+
 
 
 
@@ -159,5 +171,5 @@ const hourToMatch = parsedClinic.find((value) =>
   
   // TODO
 
-  return ['Mayo Clinic'];
+  return ;
 }

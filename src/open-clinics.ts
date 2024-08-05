@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { type ClinicOpeningHours } from "../data/example-clinic-opening-hours";
+import { exampleClinicOpeningHours, type ClinicOpeningHours } from "../data/example-clinic-opening-hours";
 
 type ParsedClinicOpeningHours = {
     clinicName: string;
@@ -22,13 +22,17 @@ type ParsedClinicOpeningHours = {
  * - The input data can be assumed to be correctly formatted, i.e. there is no
  *   requirement to validate it or handle any errors it may contain.
  */
+const daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+
 export function parseClinicOpeningHours(
   clinicOpeningHours: ClinicOpeningHours
 ): ParsedClinicOpeningHours {
 
-function determineOpenDays(startDay: string, endDay: string): Array<string>{
-        const daysOfWeek = ['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        let daysBetween: Array<string> = []
+function determineOpenDays(startDay: string, endDay: string): Array<number>{
+        // make days into numbers
+        // eg: Monday = 1
+        let daysBetween: Array<number> = []
         let startIndex;
         let endIndex;
 
@@ -42,7 +46,8 @@ function determineOpenDays(startDay: string, endDay: string): Array<string>{
              endIndex = i;
             }    
             if((i >= (startIndex as number))) {
-              daysBetween.push(day);
+              // Makes index start from 1 rather that monday === 0
+              daysBetween.push(i + 1);
               if((i === endIndex)){
                 break;
               }
@@ -51,6 +56,7 @@ function determineOpenDays(startDay: string, endDay: string): Array<string>{
           }
           return daysBetween
         }
+        
 function formatTime(timeString: string) {
           
           if(timeString.length === 3){
@@ -123,22 +129,7 @@ const sortClinic = clinicOpeningHours.map((clinic) => {
   })
 
  return sortClinic
-  
-// Output the processed clinic times
 
-
-  // return {
-  //   [clinic.Name]: {
-  //     ['Mon']: {
-  //       open: '8am',
-  //       close: '9pm'
-  //     },
-  //     ['Tues']: {
-  //       open: '8am',
-  //       close: '9pm'
-  //     }
-  //   }
-  // }
 }
 
 
@@ -151,7 +142,22 @@ export function getOpenClinics(
   parsedClinicOpeningHours: ParsedClinicOpeningHours,
   queryTime: DateTime
 ) {
+
+const parsedClinic = parseClinicOpeningHours(exampleClinicOpeningHours)
+const hourToMatch = parsedClinic.find((value) => 
+{
+  const findOpen = value.Open
+
+  console.log(findOpen);
+  
+})
+
+
+
+
+  
+  
   // TODO
 
-  return [];
+  return ['Mayo Clinic'];
 }

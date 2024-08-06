@@ -18,5 +18,8 @@ it("Reports no open clinics on Sunday at 5am", () => {
 it("Reports only the Mayo Clinic open on Monday at 8am", () => {
   expect(getClinicsOpenAt({ weekday: 1, hour: 8 })).toEqual(["Mayo Clinic"]);
 });
+it("Reports that atleast Auckland Cardiology, The Heart Team is open", () => {
+  expect(getClinicsOpenAt({ weekday: 1, hour: 12 })).toEqual(["The Heart Team"]);
+});
 
 // TODO

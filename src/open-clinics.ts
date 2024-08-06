@@ -34,21 +34,22 @@ function determineOpenDays(startDay: string, endDay: string): Array<number>{
         // eg: Monday = 1
         
         let daysBetween: Array<number> = []
-        let startIndex = 0;
+        let startIndex;
         let endIndex;
-
-        for (let i = 0; i < daysOfWeek.length; i++) {
+        
+        for (let i = 0; i < daysOfWeek.length + 1; i++) {
             const day = daysOfWeek[i];
             
           
 
-            if(day === startDay){              
+            if(day === startDay){   
+              
               startIndex = i;                            
             }
             if(day === endDay){
              endIndex = i;
             }    
-            if((i >= startIndex)) {
+            if(i >= startIndex!) {
               // Makes index start from 1 rather that monday === 0
               daysBetween.push(i + 1);
               if((i === endIndex)){
@@ -119,8 +120,9 @@ const sortClinic = clinicOpeningHours.map((clinic) => {
       const daysOpen =  seperateTimes.shift()?.split('-').join().split(',') as Array<string>
     
 
-      
-      const days = determineOpenDays(daysOpen[0], daysOpen[1])        
+            // problem in determineOpenDays 
+      const days = determineOpenDays(daysOpen[0], daysOpen[1]) 
+             
       
       const hours = convertHoursTo24HourTime(seperateTimes[0], seperateTimes[2])
       
@@ -159,26 +161,45 @@ export function getOpenClinics(
 
 const parsedClinic = parseClinicOpeningHours(exampleClinicOpeningHours)
 
+/* TODO:  
+
+ clinicsToMatch is incorrect needs to be re-written
+ I need to sort properly for each use case
+ I need to return the matching values from here
+ 
+ Probably will turn into a function
+
+ After getting this function working for each test and newly created ones
+ - then I will refactor this whole program
+
+
+*/
+
 const clinicsToMatch = parsedClinic.map((value) => 
 {
+  
   const daysOpen = value.sortedTime.find((info) => {
     // looping through days open, finding a match of the given query'd day
     // then I will need to match the day from days of the week and assign to a returned day
     for (let i = 0; i < info.days.length; i++) {
       const element = info.days[i];
       
-      if(info.days[i] === queryTime.weekday){
+      if(element === queryTime.weekday){
         return daysOfWeek[i]
       }
     }
   })
   
-  const hoursOpen = value.sortedTime.find((info) => {    
+  // Something wrong here can't figure out
+  const hoursOpen = value.sortedTime.find((info) => {   
+     
     for (let i = 0; i < info.availableTimes.length; i++) {
       const element = info.availableTimes[i]
+     
       
       if(element === queryTime.hour){
-        return true && element;
+        
+        return element;
         
         
       }else return false;
@@ -186,26 +207,45 @@ const clinicsToMatch = parsedClinic.map((value) =>
       
     }
   })
-
   
   
+  
+  
+//console.log(hoursOpen);
+// if(hoursOpen == undefined){
+//   return;
+
+// } else 
+return {clinincName: value.clinicName, ...daysOpen, ...hoursOpen }
+  
 
   
 
-  return {clinincName: value.clinicName, daysOpen, hoursOpen }
+  
 
 
   
 })
 
-const cleanseMatch = clinicsToMatch.filter((val) => val.hoursOpen !== undefined)
-const match = cleanseMatch[0]?.clinincName
+// If no information comes from a clinic it means they are closed
+//console.log(clinicsToMatch);
+
+
+
+
+
+
+/** 
+ * Hardcoded test pass
+ *  */ 
+// const cleanseMatch = clinicsToMatch.filter((val) => val.hoursOpen !== undefined)
+// const match = cleanseMatch[0]?.clinincName
 
 
 
 
 
   
-  return match !== undefined ? [match] : []
+  
  
 }

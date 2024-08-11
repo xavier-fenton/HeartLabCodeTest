@@ -21,7 +21,6 @@ it("Reports only the Mayo Clinic open on Monday at 8am", () => {
 
 it("Reports All clinics except Angios R Us are open on Monday at 12pm", () => {
   expect(getClinicsOpenAt({ weekday: 1, hour: 12 })).toEqual([
-    "Angios R Us",
     "Atrium Analysts",
     "Auckland Cardiology",
     "Mayo Clinic",

@@ -19,13 +19,21 @@ it("Reports only the Mayo Clinic open on Monday at 8am", () => {
   expect(getClinicsOpenAt({ weekday: 1, hour: 8 })).toEqual(["Mayo Clinic"]);
 });
 
-it("Reports All clinics except Angios R Us are open on Monday at 12pm", () => {
+it("Reports all clinics except Angios R Us are open on Monday at 12pm", () => {
   expect(getClinicsOpenAt({ weekday: 1, hour: 12 })).toEqual([
     "Atrium Analysts",
     "Auckland Cardiology",
     "Mayo Clinic",
     "The Heart Team",
   ]);
+});
+
+it("Reports all clinics are open on Thursday at 3pm", () => {
+  expect(getClinicsOpenAt({ weekday: 4, hour: 15 })).toEqual(['Angios R Us',
+  'Atrium Analysts',
+  'Auckland Cardiology',
+  'Mayo Clinic',
+  'The Heart Team']);
 });
 
 /* Todo: 

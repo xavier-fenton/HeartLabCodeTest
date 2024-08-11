@@ -18,8 +18,25 @@ it("Reports no open clinics on Sunday at 5am", () => {
 it("Reports only the Mayo Clinic open on Monday at 8am", () => {
   expect(getClinicsOpenAt({ weekday: 1, hour: 8 })).toEqual(["Mayo Clinic"]);
 });
-it("Reports that atleast Auckland Cardiology, The Heart Team is open", () => {
-  expect(getClinicsOpenAt({ weekday: 1, hour: 12 })).toEqual(["The Heart Team"]);
+
+it("Reports All clinics except Angios R Us are open on Monday at 12pm", () => {
+  expect(getClinicsOpenAt({ weekday: 1, hour: 12 })).toEqual([
+    "Atrium Analysts",
+    "Auckland Cardiology",
+    "Mayo Clinic",
+    "The Heart Team",
+  ]);
 });
 
-// TODO
+/* Todo: 
+  Aug 8th 2024:
+  Program works for these tests but, obv need refactors because I have 
+  some clinics over lapping, so need to clean these, and then I notice I need
+  another clause in my matching function... also turn matching variable into a
+  function rather than the map.
+
+  But happy with this result, because I have the idea of having a dynamic 
+  array being filled which is what I want.
+
+  Yet to refactor.
+*/

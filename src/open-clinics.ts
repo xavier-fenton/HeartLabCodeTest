@@ -164,24 +164,31 @@ export function getOpenClinics(
 
 */
   const hourToMatch = queryTime.hour;
-  const dayToMatch = queryTime.day;
+
+  
+  const dayToMatch = queryTime.weekday;
+  
 
   let foundMatches: Array<string> = [];
   const noMatch = "No Clinics Open";
 
   const clinicsToMatch = parsedClinic.map((value) => {
+    
     const matches = value.sortedTime.map((clinicInfo) => {
       const matchedDay = clinicInfo.days.find((day) => {
-        return day == dayToMatch;
+        
+        return day === dayToMatch;
       });
       const matchedHour = clinicInfo.availableTimes.find((hour) => {
-        return hour == hourToMatch;
+        return hour === hourToMatch;
       });
 
       if (matchedDay && matchedHour !== undefined) {
+        
         foundMatches.push(value.clinicName);
       } else return false;
     });
+    
   });
 
   return !foundMatches ? [] : foundMatches.sort();

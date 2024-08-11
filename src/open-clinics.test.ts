@@ -36,15 +36,4 @@ it("Reports all clinics are open on Thursday at 3pm", () => {
   'The Heart Team']);
 });
 
-/* Todo: 
-  Aug 8th 2024:
-  Program works for these tests but, obv need refactors because I have 
-  some clinics over lapping, so need to clean these, and then I notice I need
-  another clause in my matching function... also turn matching variable into a
-  function rather than the map.
 
-  But happy with this result, because I have the idea of having a dynamic 
-  array being filled which is what I want.
-
-  Yet to refactor.
-*/

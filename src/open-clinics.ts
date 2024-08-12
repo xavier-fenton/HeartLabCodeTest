@@ -27,56 +27,73 @@ export type ParsedClinicOpeningHours = {
  */
 
 
-const daysOfWeek = ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export function parseClinicOpeningHours(
   clinicOpeningHours: ClinicOpeningHours
 ): ParsedClinicOpeningHours {
+  
+  /*
+  Todo:Refactor readiablity
+  
+  I want to make this code readable, eg change naming conventions, know just by 
+  reading each line that it's comprehensive.
+  
+  */
+ 
+ const daysOfWeek = ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+function determineOpenDays(startDay: string, endDay: string): Array<number>{
 
+    let daysOpen: Array<number> = [];
 
+    let startingIndex;
+    let endingIndex;
+    
+    for (let i = 0; i < daysOfWeek.length; i++) {
 
-  function determineOpenDays(startDay: string, endDay: string): Array<number> {
-
-
-    let daysBetween: Array<number> = [];
-    let startIndex;
-    let endIndex;
-
-    for (let i = 0; i < daysOfWeek.length + 1; i++) {
-      const day = daysOfWeek[i];
-
-      if (day === startDay) {
-        startIndex = i;
-      }
-      if (day === endDay) {
-        endIndex = i;
-      }
-      if (i >= startIndex!) {
-        daysBetween.push(i + 1);
-        if (i === endIndex) {
+      switch (daysOfWeek[i]) {
+        case startDay:
+          startingIndex = i;
           break;
-        }
+        case endDay:
+            endingIndex = i;
+            break;   
+        default:
+          break;
       }
+    if (startingIndex !== undefined && (i >= startingIndex)){        
+          daysOpen.push(i);
+          if (i === endingIndex) {
+            break;
+          }
+        }
+
     }
-    return daysBetween;
+    
+    
+    return daysOpen
   }
 
 
 // Refactor this
 // Maybe for accuracy adding the addition of ISO string to the recieved time
-  function formatTime(timeString: string) {
+  function formatTime(givenTimeFormat: string) {
     
-    if (timeString.length === 3) {
-      
-      const splitCharThree = timeString.split("");
+    if (givenTimeFormat.length === 3) {
+      // Some where only recieve times like 2am, 5pm (single digit times)
+      const splitCharThree = givenTimeFormat.split("");
       const time = splitCharThree[0];
       const period = splitCharThree.splice(1).join("");
       const reformated = time + ":00" + " " + period.toUpperCase();
-      const convertTime = DateTime.fromFormat(reformated, "t");
-      return convertTime.toFormat("H");
+      
+      return DateTime
+      .fromFormat(reformated, "t")
+      .toFormat("H");
+
+      
     } else {
-      const splitStr = timeString.split("");
+      const splitStr = givenTimeFormat.split("");
+      
       const time = splitStr[0] + splitStr[1];
       const period = splitStr.splice(2).join("");
       const reformated = time + ":00" + " " + period.toUpperCase();

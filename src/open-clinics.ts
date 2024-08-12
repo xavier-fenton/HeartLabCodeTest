@@ -75,16 +75,15 @@ function determineOpenDays(startDay: string, endDay: string): Array<number>{
   }
 
 
-// Refactor this
-// Maybe for accuracy adding the addition of ISO string to the recieved time
   function formatTime(givenTimeFormat: string) {
     
+    // for singleDigitTime
     if (givenTimeFormat.length === 3) {
-      // Some where only recieve times like 2am, 5pm (single digit times)
-      const splitCharThree = givenTimeFormat.split("");
-      const time = splitCharThree[0];
-      const period = splitCharThree.splice(1).join("");
-      const reformated = time + ":00" + " " + period.toUpperCase();
+      const [time, ...period] = givenTimeFormat
+      .split("")
+      .join("")
+
+      const reformated = `${time}:00 ${period.join("").toUpperCase()}`;
       
       return DateTime
       .fromFormat(reformated, "t")
@@ -92,13 +91,21 @@ function determineOpenDays(startDay: string, endDay: string): Array<number>{
 
       
     } else {
-      const splitStr = givenTimeFormat.split("");
-      
-      const time = splitStr[0] + splitStr[1];
-      const period = splitStr.splice(2).join("");
-      const reformated = time + ":00" + " " + period.toUpperCase();
-      const convertTime = DateTime.fromFormat(reformated, "t");
-      return convertTime.toFormat("HH:mm");
+      const doubleDigit = givenTimeFormat
+      .split("")
+      .splice(0, 2)
+      .join("");   
+
+      const period = givenTimeFormat
+      .split("")
+      .splice(2)
+      .join("");
+
+      const reformated = `${doubleDigit}:00 ${period.toUpperCase()}`;
+
+      return DateTime
+      .fromFormat(reformated, "t")
+      .toFormat("HH:mm");
     }
 
   }

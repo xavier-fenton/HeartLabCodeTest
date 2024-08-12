@@ -5,6 +5,13 @@
 ## Instructions
 
 ## Architectural Summary & Justification
+<!-- 
+written functionally, rather than oop
+for loops rather than array.methods for loops control of flow, follow up with benchmarking?
+
+Introduce strong typing? -> ensure data sanitisation (part of scalabilty)
+
+ -->
 
 ## Scalability
 
